@@ -18,7 +18,8 @@ require "json"
 GEKYLL_DEFAULTS = {
 	"filename_matches" => [ "draft", "readme" ],
 	"extension_matches" => [ "md", "mkd", "markdown", "txt" ],
-	"extras" => [ "repo", "blobs", "commits", "diffs" ]
+	"extras" => [ "repo", "blobs", "commits", "diffs" ],
+	"default_layout" => "repo"
 }
 
 module Grit
@@ -134,7 +135,7 @@ module Jekyll
 			self.data["commits"] = @commits
 			self.data["date"] ||= @commits.first.committed_date
 			self.data["start_date"] ||= @commits.last.committed_date
-			self.data["layout"] ||= "repo"
+			self.data["layout"] ||= @gekyll_config["default_layout"]
 		end
 
 		# Aliased `write` to also write repo-related files.
