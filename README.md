@@ -18,10 +18,10 @@ Gekyll is a [Jekyll](https://github.com/mojombo/jekyll/) plugin that lets you us
 
 In addition to rendering the post, Gekyll also spits out the following files:
 
-	- `SLUG.git`: a raw, bare fork of your repo, clonable even from a static HTTP server.
-	- `SLUG/raw/*`: a directory containing all the raw files in your repo
-	- `SLUG/commits.json`: a JSON file containing information about all commits to this repo.
-	- `SLUG/diffs/*`: a directory containing one JSON file per commit, each representing an array of all diffs in that commit.
+- `SLUG.git`: a raw, bare fork of your repo, clonable even from a static HTTP server.
+- `SLUG/raw/*`: a directory containing all the raw files in your repo
+- `SLUG/commits.json`: a JSON file containing information about all commits to this repo.
+- `SLUG/diffs/*`: a directory containing one JSON file per commit, each representing an array of all diffs in that commit.
 
 These files let you do fun things with your post/repo. But creating them can slow Gekyll down. So if you don't want them, you can tell Gekyll in `_config.yml` not to write them. See the Configuration section below for details.
 
@@ -35,7 +35,7 @@ In addition to whatever you place in your YAML data, you'll have access to:
 - `first_commit_date`: the date of the repo's first commit.
 - `last_commit_date`: the date of the repo's most recent commit. (Same as `date` unless `date` has been overriden.)
 
-See `example_layouts/crude-repo-page.html`
+See `example_layouts/crude-repo-page.html` for sample usage.
 
 ## Configuration
 
@@ -49,6 +49,7 @@ Gekyll looks for a "gekyll" section in your Jekyll project's `_config.yml` file.
 So, if you wanted to use "article.EXTENSION" the main file to be rendered, and you didn't want Gekyll to write the raw repo or raw  repo files, you'd add these lines to your `_config.yml`:
 
 ```
+gekyll:
 	filename_matches:
 		- article
 	extras:
