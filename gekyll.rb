@@ -29,6 +29,12 @@ module Grit
 			self.native("diff", options, sha1, sha2)
 		end
 	end
+	class Commit
+		# Make commits play nice with Liquid templates.
+		def to_liquid
+			self.to_hash
+		end
+	end
 	class Tree
 		# Adding a recursion method to Grit::Tree. This method traverses
 		# a tree structure (directory) and calls a `callback` Proc 
@@ -128,6 +134,7 @@ module Jekyll
 			# and set relevant data fields
 			self.data ||= {}
 			self.data["is_repo"] = true
+			self.data["commits"] = self.commits
 			self.data["date"] ||= self.commits.first.committed_date
 			self.data["start_date"] ||= self.commits.last.committed_date
 			self.data["layout"] ||= "repo"
