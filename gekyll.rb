@@ -79,25 +79,22 @@ module Jekyll
 		end
 	end
 	class GekyllPost < Post
-		# Make .repo and .commits publicly accessible, so they can be used in layouts
-		attr_accessor :repo, :commits
-
 		# Override Jekyll::Post.process
 		GITMATCHER = /^(.+\/)*(.*)(\.git)$/
 		def process(name)
 			m, cats, slug, ext = *name.match(GITMATCHER)
-			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
 			self.slug = slug
-			self.repo = Grit::Repo.new File.join(@base, name)
-			self.commits = self.repo.commits("master", 10e10)
+			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
+			@repo = Grit::Repo.new File.join(@base, name)
+			@commits = @repo.commits("master", 10e10)
 		end
 
 		# Override Jekyll::Post.read_yaml
 		def read_yaml(base, name)
-			raise "Repo named #{name} has no commits." if not self.commits.first
+			raise "Repo named #{name} has no commits." if not @commits.first
 
 			# Get all the files in the repo's ground-floor directory
-			blobs = self.commits.first.tree.blobs
+			blobs = @commits.first.tree.blobs
 
 			# Look for the matching filenames, and sort them according 
 			# to their index in "filename_matches".
@@ -134,9 +131,9 @@ module Jekyll
 			# and set relevant data fields
 			self.data ||= {}
 			self.data["is_repo"] = true
-			self.data["commits"] = self.commits
-			self.data["date"] ||= self.commits.first.committed_date
-			self.data["start_date"] ||= self.commits.last.committed_date
+			self.data["commits"] = @commits
+			self.data["date"] ||= @commits.first.committed_date
+			self.data["start_date"] ||= @commits.last.committed_date
 			self.data["layout"] ||= "repo"
 		end
 
@@ -149,11 +146,11 @@ module Jekyll
 
 		def write_extras(dest)
 			path = File.join(dest, CGI.unescape(self.url))
-			commits = self.commits
+			commits = @commits
 
 			# Write bare git repo to post's main directory
 			write_raw_repo = lambda do
-				forked = self.repo.fork_bare(path[0..-2] + ".git")
+				forked = @repo.fork_bare(path[0..-2] + ".git")
 
 				# Make sure that repo can be cloned from a static server
 				forked.git.native(:repack)
