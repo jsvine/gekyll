@@ -1,0 +1,23 @@
+---
+layout: none
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>{{ site.name }} - Revisions</title>
+		<description>{{ site.description }}</description>
+		<link>{{ site.url }}</link>
+		<atom:link href="{{ site.url }}/feeds/revisions.xml" rel="self" type="application/rss+xml" />
+		{% for post in site.posts %}
+			{% for commit in post.commits limit:5 %}
+			<item>
+				<title>Revision to "{{ post.title }}" at {{ commit.committed_date | date: "%I:%M%P on %B %d, %Y" }}</title>
+				<description>{{ commit.message | xml_escape }}</description>
+				<pubDate>{{ commit.committed_date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+				<link>{{ site.url }}{{ post.url }}#revision/{{ commit.id }}</link>
+				<guid isPermaLink="true">{{ site.url }}{{ post.url }}#revision/{{ commit.id }}</guid>
+			</item>
+			{% endfor %}
+		{% endfor %}
+	</channel>
+</rss>
