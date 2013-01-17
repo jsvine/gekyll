@@ -67,6 +67,10 @@ gekyll:
 		- diffs
 ```
 
+## Gekyll in the Wild
+
+- [drafts.jsvine.com](http://drafts.jsvine.com/)
+
 ## TODO
 
 - Add tests.
