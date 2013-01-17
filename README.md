@@ -4,7 +4,7 @@ Gekyll is a [Jekyll](https://github.com/mojombo/jekyll/) plugin that lets you us
 
 ## Getting Started
 
-- Copy `gekyll.rb` from this repository into your Jekyll project's `_plugins` directory.
+- Copy `gekyll.rb` from this repository into your Jekyll project's `_plugins/` directory.
 - Gekyll depends on the [Grit](https://github.com/mojombo/grit/) gem. So install it: `gem install grit`.
 
 ## Adding Git repositories as Jekyll posts
@@ -61,10 +61,10 @@ So, if you wanted to use "article.EXTENSION" the main file to be rendered, and y
 ```
 gekyll:
 	filename_matches:
-				- article
+		- article
 	extras:
-				- commits
-				- diffs
+		- commits
+		- diffs
 ```
 
 ## TODO
