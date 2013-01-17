@@ -45,7 +45,7 @@ In addition to whatever you place in your YAML header, you'll have access to:
 - `first_commit_date`: the date of the repo's first commit.
 - `last_commit_date`: the date of the repo's most recent commit. (Same as `date` unless `date` has been overridden.)
 
-See `example_layouts/crude-repo-page.html` for sample usage.
+See `sample-layouts/crude-repo-page.html` for sample usage.
 
 ## Configuration
 
