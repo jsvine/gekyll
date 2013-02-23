@@ -181,7 +181,7 @@ module Jekyll
 			write_commits = lambda do
 				def commits_json (commits)
 					commits.map do |c|
-						c.to_hash.deep_merge({ files: c.stats.files })
+						c.to_hash.deep_merge({ :files => c.stats.files })
 					end.to_json
 				end
 				File.open(File.join(path, "commits.json"), "w") do |f|
