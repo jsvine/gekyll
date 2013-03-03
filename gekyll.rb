@@ -14,12 +14,13 @@ require "json"
 # 		- blobs
 # 		- commits
 # 		- diffs
-# 		
+ 		
 GEKYLL_DEFAULTS = {
 	"filename_matches" => [ "draft", "readme" ],
 	"extension_matches" => [ "md", "mkd", "markdown", "txt" ],
 	"extras" => [ "repo", "blobs", "commits", "diffs" ],
-	"default_layout" => "repo"
+	"default_layout" => "repo",
+	"verbose" => true
 }
 
 module Grit
@@ -74,7 +75,6 @@ module Jekyll
 				if self.repo?(name) and self != GekyllPost
 					return GekyllPost.new(*args)
 				end
-				puts ">> #{name} [#{self.name.split("::").last}]"
 				new_orig(*args)
 			end
 		end
@@ -86,6 +86,7 @@ module Jekyll
 			m, cats, slug, ext = *name.match(GITMATCHER)
 			self.slug = slug
 			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
+			puts ">> Processing Gekyll post: #{name}" if @gekyll_config["verbose"]
 			@repo = Grit::Repo.new File.join(@base, name)
 			@commits = @repo.commits("master", 10e10)
 		end
