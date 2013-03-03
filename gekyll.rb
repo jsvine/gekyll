@@ -16,10 +16,16 @@ require "json"
 # 		- diffs
  		
 GEKYLL_DEFAULTS = {
+	# If a repo contains many files, prefer those with certain names.
 	"filename_matches" => [ "draft", "readme" ],
+	# If a repo contains many files, and none match the names above, 
+	# prefer those with certain file extensions.
 	"extension_matches" => [ "md", "mkd", "markdown", "txt" ],
+	# In addition to rendering posts, write extra repo-related files.
 	"extras" => [ "repo", "blobs", "commits", "diffs" ],
+	# By default, use the layout at _layouts/repo.{html/erb/etc}
 	"default_layout" => "repo",
+	# Write progress/process messages to stderr.
 	"verbose" => true
 }
 
