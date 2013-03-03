@@ -86,7 +86,7 @@ module Jekyll
 			m, cats, slug, ext = *name.match(GITMATCHER)
 			self.slug = slug
 			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
-			puts ">> Processing Gekyll post: #{name}" if @gekyll_config["verbose"]
+			STDERR.write ">> Processing Gekyll post: #{name}\n" if @gekyll_config["verbose"]
 			@repo = Grit::Repo.new File.join(@base, name)
 			@commits = @repo.commits("master", 10e10)
 		end
