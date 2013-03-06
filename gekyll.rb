@@ -49,11 +49,11 @@ module Grit
 		# on every blob encountered.
 		#
 		# The callback should accept two parameters, `blob` and `tree`.
-		def recurse(callback)
-			self.blobs.each do |blob|
-				callback.call(blob, self)
+		def recurse(callback, subtree = self)
+			subtree.blobs.each do |blob|
+				callback.call(blob, subtree)
 			end
-			self.trees.each { |subtree| self.recurse(subtree, callback) }
+			subtree.trees.each { |subtree| self.recurse(callback, subtree) }
 		end
 	end
 end
