@@ -9,13 +9,16 @@ Gekyll is a [Jekyll](https://github.com/mojombo/jekyll/) plugin that lets you us
 
 ## Adding Git repositories as Jekyll posts
 
-- Gekyll intercepts all "XXXXX.git" directories in your Jekyll project's `_posts/` directory. Gekyll needs those to be "bare" repositories. So when you want to use a repo as a post, you'll want to `git clone --bare {REPO LOCATION} _posts/{DESIRED SLUG}.git`. Gekyll doesn't get in the way of standard posts, so your `_posts/` directory might look like this:
+- Gekyll intercepts all Git directories in your Jekyll project's `_posts/` directory. Gekyll can handle both "bare" and "non-bare" repositories. (Bare repositories should end in ".git" so Gekyll can find them.) Gekyll doesn't get in the way of standard posts, so your `_posts/` directory might look like this:
 
 ```
 _posts/
 ├── 2013-01-01-happy-new-year.md (standard post)
-├── a-profound-essay-on-free-will.git (repo, for Gekyll)
-└── i-like-ice-cream.git (another repo, for Gekyll)
+├── a-profound-essay-on-free-will.git/ (bare repo, for Gekyll)
+├── baseball-predictions/ (non-bare repo, for Gekyll)		
+		├── .git/
+		└── ...
+└── i-like-ice-cream.git/ (another bare repo, for Gekyll)
 ```	
 
 - To get a Git repository's main content, Gekyll looks in the repo's ground-floor directory for the first file named draft.EXTENSION, readme.EXTENSION, FILENAME.md, FILENAME.mkd, FILENAME.markdown, or FILENAME.txt. (In that order. You can change the order and filenames/extensions, though, in your `_config.yml` file; see the [Configuration](#configuration) section below for details.)

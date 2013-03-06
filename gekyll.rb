@@ -61,10 +61,12 @@ end
 module Jekyll
 	class Post
 		# If you want Gekyll to recognize your repo, it should exist as
-		# a "bare" (though not empty) Git repository in the _posts
-		# directory and its name should end in ".git"
+		# Git repository in the _posts. Gekyll can handle "bare" (i.e.,
+		# created with `git clone --bare [[repo]]` and "non-bare". The
+		# names of bare repositories must end in ".git", e.g.,
+		# "_posts/my-awesome-post.git"
 		def self.repo?(name)
-			name[-4..-1] == ".git"
+			name[-4..-1] == ".git" or Dir.exists?("_posts/#{name}/.git")
 		end
 
 		# Override Jekyll::Post.valid?
@@ -87,13 +89,14 @@ module Jekyll
 	end
 	class GekyllPost < Post
 		# Override Jekyll::Post.process
-		GITMATCHER = /^(.+\/)*(.*)(\.git)$/
+		GITMATCHER = /^(.+\/)*([^\/]+)\/?(\.git)$/
 		def process(name)
-			m, cats, slug, ext = *name.match(GITMATCHER)
+			@is_bare = name[-4..-1] == ".git"
+			m, cats, slug, ext = *(@is_bare ? name : "#{name}/.git").match(GITMATCHER)
 			self.slug = slug
 			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
 			STDERR.write ">> Processing Gekyll post: #{name}\n" if @gekyll_config["verbose"]
-			@repo = Grit::Repo.new File.join(@base, name)
+			@repo = Grit::Repo.new File.join(@base, @is_bare ? name : "#{name}/.git")
 			@commits = @repo.commits("master", 10e10)
 		end
 
