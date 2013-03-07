@@ -1,6 +1,8 @@
 require "grit"
 require "json"
 
+GEKYLL_VERSION = "0.2.0"
+
 # You can override these defaults in your Jekyll _config.yml file.
 #
 # E.g., to use "article.{extension}" as the main file to be rendered,
