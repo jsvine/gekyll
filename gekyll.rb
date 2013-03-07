@@ -88,6 +88,10 @@ module Jekyll
 		end
 	end
 	class GekyllPost < Post
+		def log(msg)
+			STDERR.write(msg + "\n") if @gekyll_config["verbose"]
+		end
+
 		# Override Jekyll::Post.process
 		GITMATCHER = /^(.+\/)*([^\/]+)\/?(\.git)$/
 		def process(name)
@@ -95,7 +99,7 @@ module Jekyll
 			m, cats, slug, ext = *(@is_bare ? name : "#{name}/.git").match(GITMATCHER)
 			self.slug = slug
 			@gekyll_config = GEKYLL_DEFAULTS.merge(@site.config['gekyll'] || {})
-			STDERR.write ">> Processing Gekyll post: #{name}\n" if @gekyll_config["verbose"]
+			self.log ">> Processing Gekyll post: #{name}"
 			@repo = Grit::Repo.new File.join(@base, @is_bare ? name : "#{name}/.git")
 			@commits = @repo.commits("master", 10e10)
 		end
