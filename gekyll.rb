@@ -167,6 +167,12 @@ module Jekyll
 
 		def write_extras(dest)
 			path = File.join(dest, CGI.unescape(self.url))
+
+			# Tweak path for Jekyll permalinks that aren't directories, 
+			# e.g., site.com/posts/my-post.html instead of 
+			# 		site.com/posts/my-post/
+			path = path.gsub(/\.[^\.]+$/, "/") if path[-1] != "/"
+			
 			commits = @commits
 
 			# Write bare git repo to post's main directory
