@@ -74,8 +74,3 @@ gekyll:
 
 - [drafts.jsvine.com](http://drafts.jsvine.com/)
 
-## TODO
-
-- Add tests.
-- Consider making more aspects of each repository available to Liquid templates.
-- [Your idea here.]
