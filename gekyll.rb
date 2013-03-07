@@ -24,7 +24,7 @@ GEKYLL_DEFAULTS = {
 	# In addition to rendering posts, write extra repo-related files.
 	"extras" => [ "repo", "blobs", "commits", "diffs" ],
 	# By default, use the layout at _layouts/repo.{html/erb/etc}
-	"default_layout" => "repo",
+	"layout" => "repo",
 	# Write progress/process messages to stderr.
 	"verbose" => true
 }
@@ -151,7 +151,7 @@ module Jekyll
 			# specified in the post's YAML.
 			self.data["date"] ||= @commits.first.committed_date
 			# Use a default layout unless otherwise specified.
-			self.data["layout"] ||= @gekyll_config["default_layout"]
+			self.data["layout"] ||= @gekyll_config["layout"]
 		end
 
 		# Aliased `write` to also write repo-related files.

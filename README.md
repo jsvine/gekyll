@@ -57,7 +57,7 @@ Gekyll looks for a "gekyll" section in your Jekyll project's `_config.yml` file.
 - `filename_matches`: a list/array of case-insensitive, extensionless filenames Gekyll should consider to contain your main post, in order of priority. Default: `[ draft, readme ]`
 - `extension_matches`: a list/array of case-insensitive, filenameless extensions Gekyll should consider to contain your main post, in order of priority. Default: `[ md, mkd, markdown, txt ]`
 - `extras`: a list/array of the extra files (see the [Extra Files](#extra-files) section above) that Gekyll should generate. Default: `[ repo, blobs, commits, diffs ]`
-- `default_layout`: the Jekyll layout that Gekyll should apply to its posts by default — can be overridden in the post's YAML header. Default: `repo`
+- `layout`: the Jekyll layout that Gekyll should apply to its posts by default — can be overridden in the post's YAML header. Default: `repo`
 
 So, if you wanted to use "article.EXTENSION" the main file to be rendered, and you didn't want Gekyll to write the raw repo or raw  repo files, you'd add these lines to your `_config.yml`:
 
