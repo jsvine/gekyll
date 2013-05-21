@@ -131,7 +131,7 @@ module Jekyll
 
 			# Consider the first matching file to be our main content.
 			matched = matching.first
-			self.content = matched.data
+			self.content = matched.data.force_encoding('UTF-8')
 			self.ext = matched.name.split(".")[-1]
 
 			# This chunk comes from standard Jekyll
