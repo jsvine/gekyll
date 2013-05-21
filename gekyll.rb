@@ -61,6 +61,17 @@ module Grit
 end
 
 module Jekyll
+	class Site
+		# Override Site#get_entries so that it doesn't ignore directories.
+		def get_entries(dir, subfolder)
+			base = File.join(self.source, dir, subfolder)
+			return [] unless File.exists?(base)
+			entries = Dir.chdir(base) { filter_entries(Dir['**/*']) }
+			# Only difference is deleting/commenting-out the following line,
+			# which was added in Jekyll 1.0:
+			# entries.delete_if { |e| File.directory?(File.join(base, e)) }
+		end
+	end
 	class Post
 		# If you want Gekyll to recognize your repo, it should exist as
 		# Git repository in the _posts. Gekyll can handle "bare" (i.e.,
@@ -139,6 +150,11 @@ module Jekyll
 				if self.content =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
 					self.content = $POSTMATCH
 					self.data = YAML.load($1)
+
+					# For Post#extract_excerpt added in Jekyll 1.0
+					if self.respond_to?(:extract_excerpt) 
+						self.extracted_excerpt = self.extract_excerpt
+					end
 				end
 			rescue => e
 				puts "YAML Exception reading #{name}: #{e.message}"
