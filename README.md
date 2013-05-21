@@ -2,6 +2,8 @@
 
 Gekyll is a [Jekyll](https://github.com/mojombo/jekyll/) plugin that lets you use Git repositories as posts, giving you access to a post's commits, diffs, and more.
 
+Gekyll supports Jekyll 1.0 and pre-1.0 versions.
+
 ## Getting Started
 
 - Copy `gekyll.rb` from this repository into your Jekyll project's `_plugins/` directory.
