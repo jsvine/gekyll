@@ -11,7 +11,7 @@
 	<hr/>
 	<h3>Repo Stats</h3>
 	<ul>
-		<li>Draft created: <b>{{ page.start_date | date: "%-d %B %Y" }}</b></li>
+		<li>Draft created: <b>{{ page.first_commit_date | date: "%-d %B %Y" }}</b></li>
 		<li>Last updated: <b>{{ page.date | date: "%-d %B %Y" }}</b></li>
 		<li># of commits: <b>{{ page.commits.size }}</b></li>
 	</ul>
