@@ -167,7 +167,7 @@ module Jekyll
 			self.data["commits"] = @commits
 			# Because Grit orders commit dates in reverse-chronological order,
 			# "first" and "last" are flipped.
-			self.data["first_commit_date"] = @commits.last.committed_date
+			self.data["first_commit_date"] = ||@commits.last.committed_date
 			self.data["last_commit_date"] = @commits.first.committed_date
 			# Use the most recent commit date as "date" unless already
 			# specified in the post's YAML.
