@@ -1,7 +1,7 @@
 require "grit"
 require "json"
 
-GEKYLL_VERSION = "0.2.0"
+GEKYLL_VERSION = "0.2.1"
 
 # You can override these defaults in your Jekyll _config.yml file.
 #
@@ -79,7 +79,7 @@ module Jekyll
 		# names of bare repositories must end in ".git", e.g.,
 		# "_posts/my-awesome-post.git"
 		def self.repo?(name)
-			name[-4..-1] == ".git" or Dir.exists?("_posts/#{name}/.git")
+			name[-4..-1] == ".git" or File.directory?("_posts/#{name}/.git")
 		end
 
 		# Override Jekyll::Post.valid?
@@ -258,4 +258,12 @@ module Jekyll
 			write_diffs.call if extras.include? "diffs"
 		end
 	end
+end
+
+if RUBY_VERSION < "1.9"
+    class IO
+        def set_encoding(ext_enc, int_enc)
+            self
+        end
+    end
 end
