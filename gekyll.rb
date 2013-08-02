@@ -259,3 +259,11 @@ module Jekyll
 		end
 	end
 end
+
+if RUBY_VERSION < "1.9"
+    class IO
+        def set_encoding(ext_enc, int_enc)
+            self
+        end
+    end
+end
