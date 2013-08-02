@@ -74,6 +74,7 @@ gekyll:
 
 ## Gekyll in the Wild
 
-- [drafts.jsvine.com](http://drafts.jsvine.com/)
-- [drafts.chrislkeller.com](http://drafts.chrislkeller.com/)
+- [drafts.jsvine.com](http://drafts.jsvine.com/) - Jeremy Singer-Vine
+- [drafts.chrislkeller.com](http://drafts.chrislkeller.com/) - Chris Keller
+- [mechanicalscribe.com](http://mechanicalscribe.com/) - Chris Wilson
 
